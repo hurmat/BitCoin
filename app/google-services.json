@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "298713478749",
+    "firebase_url": "https://bit-coin-7d727.firebaseio.com",
+    "project_id": "bit-coin-7d727",
+    "storage_bucket": "bit-coin-7d727.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298713478749:android:e19ae85484ec712e",
+        "android_client_info": {
+          "package_name": "com.macbook.hurmat.bitcoin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298713478749-a8jppskj2cqdmdhp1tr828qm79fv6lkt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.macbook.hurmat.bitcoin",
+            "certificate_hash": "0c10843b8c3c25a596ca4b46ff52e84bd73c49c8"
+          }
+        },
+        {
+          "client_id": "298713478749-4q5da7mc3f4m3hpij41mr617l6t6qv2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrZ8GNBBN6_WWZI4slB97P7AfibAVBiDo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298713478749-4q5da7mc3f4m3hpij41mr617l6t6qv2m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
