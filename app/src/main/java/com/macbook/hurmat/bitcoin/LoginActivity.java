@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (isLogin) {
             startActivity(new Intent(LoginActivity.this, MainActivity_conversion.class));
+
             LoginActivity.this.finish();
         }
 

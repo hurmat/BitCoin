@@ -1,10 +1,9 @@
 package com.macbook.hurmat.bitcoin;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,17 +18,14 @@ public class MainActivity_conversion extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_conversion);
+        setContentView(R.layout.conversion_bitcoin);
 
-        logout = (TextView) findViewById(R.id.logout);
-
+       // logout = (TextView) findViewById(R.id.logout);
         firebaseAuth = FirebaseAuth.getInstance();
-
-
         sharedPreferences = getSharedPreferences("Reg", 0);
         editor = sharedPreferences.edit();
 
-        logout.setOnClickListener(new View.OnClickListener() {
+       /* logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -38,6 +34,20 @@ public class MainActivity_conversion extends AppCompatActivity {
                 startActivity(new Intent(MainActivity_conversion.this , LoginActivity.class));
                 MainActivity_conversion.this.finish();
             }
-        });
+        });*/
+        TabHost tabHost =(TabHost) findViewById(R.id.tabHost);
+        tabHost.setup();
+
+        //tabOne
+        TabHost.TabSpec specOne = tabHost.newTabSpec("Bitcoin");
+        specOne.setContent(R.id.tabBitcoin);
+        specOne.setIndicator("Bitcoin");
+        tabHost.addTab(specOne);
+
+        //tabTwo
+        TabHost.TabSpec specTwo = tabHost.newTabSpec("Ethereum");
+        specTwo.setContent(R.id.tabEthereum);
+        specTwo.setIndicator("Ethereum");
+        tabHost.addTab(specTwo);
     }
 }
