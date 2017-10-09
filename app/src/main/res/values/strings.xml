@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Bit Coin</string>
+
+    <string-array name="spinnerItem">
+        <item>USD</item>
+        <item>MXN</item>
+    </string-array>
+
 </resources>

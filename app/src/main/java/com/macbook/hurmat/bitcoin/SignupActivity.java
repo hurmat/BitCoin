@@ -23,7 +23,7 @@ public class SignupActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    boolean isLogin;
+
 
     private FirebaseAuth firebaseAuth;
 
@@ -32,29 +32,33 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
         sharedPreferences = getSharedPreferences("Reg", 0);
         editor = sharedPreferences.edit();
-        isLogin = sharedPreferences.getBoolean("Login", false);
 
-        if (isLogin) {
-            startActivity(new Intent(SignupActivity.this, MainActivity_conversion.class));
-            SignupActivity.this.finish();
-        }
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Logging In");
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
 
         etName = (EditText) findViewById(R.id.etName);
         etEmail =(EditText) findViewById(R.id.etEmailLogin);
         etPassword = (EditText) findViewById(R.id.etPasswordLogin);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
-        firebaseAuth = FirebaseAuth.getInstance();
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (!validate()) {
 
                     return;
                 }
+
+                progressDialog.show();
 
                 final String name = etName.getText().toString();
                 final String email = etEmail.getText().toString();
@@ -70,8 +74,11 @@ public class SignupActivity extends AppCompatActivity {
                              editor.putBoolean("Login", true);
                              editor.commit();
 
-                            SignupActivity.this.finish();
-                            startActivity(new Intent(SignupActivity.this , MainActivity_conversion.class));
+                            progressDialog.dismiss();
+                             SignupActivity.this.finish();
+                            // startActivity(new Intent(SignupActivity.this , MainActivity_conversion.class));
+                            startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+
 
 
                         } else {
@@ -120,5 +127,6 @@ public class SignupActivity extends AppCompatActivity {
         }
         return valid;
     }
+
 
 }

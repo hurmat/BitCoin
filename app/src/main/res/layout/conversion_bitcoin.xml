@@ -29,7 +29,6 @@
                     android:orientation="vertical"
                     android:weightSum="1">
 
-                    z
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -86,12 +85,12 @@
                                 android:weightSum="1">
 
                                 <TextView
-                                    android:id="@+id/tvRate"
+                                    android:id="@+id/tvBtcToday"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0.96"
                                     android:gravity="center"
-                                    android:text="44.96"
+                                    android:text="4460.96"
                                     android:textColor="@color/colorLight"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -99,7 +98,10 @@
                                 <Spinner
                                     android:id="@+id/spinnerOne"
                                     android:layout_width="136dp"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:dropDownWidth="match_parent"
+                                    android:entries="@array/spinnerItem"
+                                    android:spinnerMode="dropdown" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -170,8 +172,8 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/tvBTCOne"
-                                    android:layout_width="30dp"
+                                    android:id="@+id/tvBtc"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="30dp"
                                     android:layout_marginBottom="20dp"
                                     android:layout_weight="0.09"
@@ -182,7 +184,7 @@
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/tvBTCrate"
+                                    android:id="@+id/tvBtc_rate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="20dp"
@@ -201,8 +203,8 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/tvUSDOne"
-                                    android:layout_width="30dp"
+                                    android:id="@+id/tvUsd"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="30dp"
                                     android:layout_marginBottom="20dp"
                                     android:layout_weight="0.12"
@@ -213,7 +215,7 @@
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/tvUSDrate"
+                                    android:id="@+id/tvBtc_usd"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="20dp"
@@ -232,8 +234,8 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/tvMXNOne"
-                                    android:layout_width="30dp"
+                                    android:id="@+id/tvMxn"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="30dp"
                                     android:layout_marginBottom="20dp"
                                     android:layout_weight="0.12"
@@ -244,7 +246,7 @@
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/tvMXNrate"
+                                    android:id="@+id/tvBtc_mxn"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="20dp"
@@ -270,8 +272,8 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/tvMXN_USD"
-                                    android:layout_width="30dp"
+                                    android:id="@+id/tvMxnUsd"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="30dp"
                                     android:layout_marginBottom="20dp"
                                     android:layout_marginRight="20dp"
@@ -284,7 +286,7 @@
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/tvMXN_USDrate"
+                                    android:id="@+id/tvBtc_MxnUsd"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="60dp"
@@ -325,7 +327,7 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/bitcoinLogo"
+                                android:id="@+id/ethereumLogo"
                                 android:layout_width="80dp"
                                 android:layout_height="75dp"
                                 android:layout_marginBottom="10dp"
@@ -362,7 +364,7 @@
                                 android:weightSum="1">
 
                                 <TextView
-                                    android:id="@+id/tvRate"
+                                    android:id="@+id/tvEthToday"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0.96"
@@ -373,9 +375,11 @@
                                     android:textStyle="bold" />
 
                                 <Spinner
-                                    android:id="@+id/spinnerOne"
+                                    android:id="@+id/spinnertwo"
                                     android:layout_width="136dp"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:spinnerMode="dropdown"
+                                    android:entries="@array/spinnerItem"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -387,7 +391,7 @@
                                 android:orientation="horizontal">
 
                                 <ImageView
-                                    android:id="@+id/imageView3"
+                                    android:id="@+id/imageView33"
                                     android:layout_width="34dp"
                                     android:layout_height="match_parent"
                                     android:paddingBottom="10dp"
@@ -397,7 +401,7 @@
                                     app:srcCompat="@drawable/calender" />
 
                                 <TextView
-                                    android:id="@+id/tvDate1"
+                                    android:id="@+id/tvDate2"
                                     android:layout_width="151dp"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
@@ -417,7 +421,7 @@
                     </LinearLayout>
 
                     <ScrollView
-                        android:id="@+id/scrollOne"
+                        android:id="@+id/scrolltwo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
@@ -428,7 +432,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tvBitcoin"
+                                android:id="@+id/tvEthereum"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="20dp"
@@ -446,8 +450,8 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/tvBTCOne"
-                                    android:layout_width="30dp"
+                                    android:id="@+id/tvETH"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="30dp"
                                     android:layout_marginBottom="20dp"
                                     android:layout_weight="0.09"
@@ -458,7 +462,7 @@
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/tvBTCrate"
+                                    android:id="@+id/tvEth_rate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="20dp"
@@ -477,8 +481,8 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/tvUSDOne"
-                                    android:layout_width="30dp"
+                                    android:id="@+id/tvUSD"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="30dp"
                                     android:layout_marginBottom="20dp"
                                     android:layout_weight="0.07"
@@ -489,7 +493,7 @@
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/tvUSDrate"
+                                    android:id="@+id/tvEth_Usd"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="20dp"
@@ -508,7 +512,7 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/tvMXNOne"
+                                    android:id="@+id/tvMXN"
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
                                     android:layout_marginBottom="20dp"
@@ -520,7 +524,7 @@
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/tvMXNrate"
+                                    android:id="@+id/tvEth_mxn"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="20dp"
@@ -546,8 +550,8 @@
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/tvMXN_USD"
-                                    android:layout_width="30dp"
+                                    android:id="@+id/tvEthMxnUsd"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="30dp"
                                     android:layout_marginBottom="20dp"
                                     android:layout_marginRight="20dp"
@@ -560,7 +564,7 @@
                                     android:textStyle="bold" />
 
                                 <TextView
-                                    android:id="@+id/tvMXN_USDrate"
+                                    android:id="@+id/tvEth_MxnUsd"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginRight="60dp"
@@ -583,7 +587,8 @@
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
-                android:foregroundGravity="bottom" />
+                android:foregroundGravity="bottom"
+                />
 
         </LinearLayout>
 
