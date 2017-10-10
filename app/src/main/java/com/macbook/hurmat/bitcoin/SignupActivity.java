@@ -82,8 +82,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
                         } else {
-
-
+                            progressDialog.dismiss();
                             new AlertDialog.Builder(SignupActivity.this)
                                     .setTitle("Error")
                                     .setMessage(task.getException().toString())
