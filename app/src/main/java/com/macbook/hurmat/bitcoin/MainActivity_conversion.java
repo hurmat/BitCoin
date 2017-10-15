@@ -1,10 +1,19 @@
 package com.macbook.hurmat.bitcoin;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +29,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class MainActivity_conversion extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
@@ -31,8 +43,12 @@ public class MainActivity_conversion extends AppCompatActivity {
     TextView tvBtcUsd, tvBtcMxn, tvBtcMxntoUsd;
     TextView tvEthUsd, tvEthMxn, tvEthMxntoUsd;
     TextView tvEthToday, tvBtcToday;
-
+    ImageView alertOne, alertTwo;
+    TextView dateOne, dateTwo;
+    String Date;
+    Double compareValue = 17.11;
     Double BTCPriceInUSD,BTCPriceInMXN, ETHPriceInUSD,ETHPriceInMXN,USDtoMXNRate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +76,7 @@ public class MainActivity_conversion extends AppCompatActivity {
         TabHost.TabSpec specTwo = tabHost.newTabSpec("Ethereum");
         specTwo.setContent(R.id.tabEthereum);
         specTwo.setIndicator("Ethereum");
-        specTwo.setIndicator(new Tab(getApplicationContext(), R.drawable.bitcoin_b,"Ethereum"));
+        specTwo.setIndicator(new Tab(getApplicationContext(), R.drawable.ethereum_b,"Ethereum"));
         tabHost.addTab(specTwo);
 
 
@@ -72,6 +88,33 @@ public class MainActivity_conversion extends AppCompatActivity {
         tvEthMxntoUsd =(TextView)findViewById(R.id.tvEth_MxnUsd);
         tvBtcToday =(TextView)findViewById(R.id.tvBtcToday);
         tvEthToday =(TextView) findViewById(R.id.tvEthToday);
+        alertOne = (ImageView) findViewById(R.id.imgAlert); //bitcoin
+        alertTwo =(ImageView) findViewById(R.id.imgAlertTwo); //Ethereum
+        dateOne = (TextView) findViewById(R.id.tvDate1);
+        dateTwo = (TextView) findViewById(R.id.tvDate2);
+
+        long date = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
+        Date = sdf.format(date);
+
+        dateOne.setText(Date);
+        dateTwo.setText(Date);
+
+
+        alertOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showValueBox();
+            }
+        });
+
+        alertTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showValueBox();
+            }
+        });
 
 
         final Handler handler = new Handler();
@@ -112,6 +155,14 @@ public class MainActivity_conversion extends AppCompatActivity {
                             tvEthMxntoUsd.setText(String.valueOf(USDtoMXNRate));
                             tvBtcMxntoUsd.setText(String.valueOf(USDtoMXNRate));
 
+
+                            if(USDtoMXNRate>=compareValue){
+
+                                showNotification();
+                                showAlert();
+
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -122,6 +173,7 @@ public class MainActivity_conversion extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(MainActivity_conversion.this, error.toString(), Toast.LENGTH_SHORT).show();
 
+
             }
         });
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -130,6 +182,79 @@ public class MainActivity_conversion extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(this).add(request);
     }
+
+    public void showValueBox(){
+        
+        final View mView = getLayoutInflater().inflate(R.layout.value_box, null);
+        final EditText value = (EditText)mView.findViewById(R.id.etValue);
+        Button save =(Button)mView.findViewById(R.id.btnSave);
+
+        value.setText(compareValue.toString());
+        final AlertDialog valueBox = new AlertDialog.Builder(MainActivity_conversion.this).create();
+        valueBox.setView(mView);
+        valueBox.show();
+        valueBox.setCancelable(true);
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+                compareValue = Double.parseDouble(value.getText().toString());
+                valueBox.dismiss();
+
+
+            }
+        });
+        
+
+    }
+
+    public void showNotification(){
+        Intent intent = new Intent(this, MainActivity_conversion.class);
+
+        int pendingIntentId = 0;
+        PendingIntent pendindIntent = PendingIntent.getActivity(this,pendingIntentId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Notification.Builder builder = new Notification.Builder(this)
+                .setContentIntent(pendindIntent)
+                .setContentTitle("Bitcoin")
+                .setContentText("The rate of ETH crossed "+ compareValue)
+                .setSmallIcon(R.drawable.bitcoin_b)
+                .setWhen(Calendar.getInstance().getTimeInMillis())
+                .setAutoCancel(true);
+
+        Notification notification = builder.build();
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+         int notificationId = 0;
+        notificationManager.notify(notificationId,notification);
+
+
+    }
+
+    public void showAlert(){
+
+        final View mView = getLayoutInflater().inflate(R.layout.alert_box, null);
+        TextView tvValue = (TextView) mView.findViewById(R.id.tvValue);
+        Button oky = (Button) mView.findViewById(R.id.btnOky);
+        TextView alertDate =(TextView) mView.findViewById(R.id.tvAlertDate);
+
+        alertDate.setText(Date);
+
+        tvValue.setText(compareValue.toString());
+        final AlertDialog alertBox = new AlertDialog.Builder(MainActivity_conversion.this).create();
+        alertBox.setView(mView);
+        alertBox.show();
+        alertBox.setCancelable(true);
+
+        oky.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertBox.cancel();
+            }
+        });
+
+    }
+
 }
 
 
