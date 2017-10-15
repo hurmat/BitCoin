@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
-        android:text="DD/MM/YYYY"
         android:textAlignment="textEnd"
         android:textColor="@color/colorLight"
         android:textSize="14sp" />
@@ -92,7 +91,7 @@
             android:layout_marginTop="5dp"
             android:layout_weight="0.09"
             android:paddingLeft="5dp"
-            android:text="22.2"
+            android:text="17.11"
             android:textAlignment="textStart"
             android:textColor="@color/colorLight"
             android:textSize="18sp" />
@@ -109,7 +108,7 @@
         android:layout_marginTop="10dp"
         android:autoText="false"
         android:background="@drawable/round_corners"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/colorLight"
         android:foregroundGravity="center"
         android:gravity="center"
         android:text="OK"

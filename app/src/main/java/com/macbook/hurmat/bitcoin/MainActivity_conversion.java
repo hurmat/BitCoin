@@ -46,7 +46,7 @@ public class MainActivity_conversion extends AppCompatActivity {
     ImageView alertOne, alertTwo;
     TextView dateOne, dateTwo;
     String Date;
-    Double compareValue = 17.11;
+    Double compareValue = 18.11;
     Double BTCPriceInUSD,BTCPriceInMXN, ETHPriceInUSD,ETHPriceInMXN,USDtoMXNRate;
 
 
@@ -160,6 +160,7 @@ public class MainActivity_conversion extends AppCompatActivity {
 
                                 showNotification();
                                 showAlert();
+                                compareValue= compareValue+1.00;
 
                             }
 
@@ -218,12 +219,12 @@ public class MainActivity_conversion extends AppCompatActivity {
                 .setContentIntent(pendindIntent)
                 .setContentTitle("Bitcoin")
                 .setContentText("The rate of ETH crossed "+ compareValue)
-                .setSmallIcon(R.drawable.bitcoin_b)
+                .setSmallIcon(R.drawable.notification_bitcoin)
                 .setWhen(Calendar.getInstance().getTimeInMillis())
                 .setAutoCancel(true);
 
         Notification notification = builder.build();
-
+        builder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
          int notificationId = 0;
         notificationManager.notify(notificationId,notification);

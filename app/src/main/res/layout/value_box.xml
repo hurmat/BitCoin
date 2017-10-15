@@ -14,7 +14,7 @@
         android:text="Enter compare number to show alert."
         android:textAlignment="center"
         android:textColor="@color/colorLight"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/etValue"
@@ -27,7 +27,8 @@
         android:text="20.12"
         android:textAlignment="center"
         android:textColor="@color/colorLight"
-        android:textColorHint="@color/colorLight" />
+        android:textColorHint="@color/colorLight"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/btnSave"
@@ -42,6 +43,6 @@
         android:gravity="center"
         android:text="Save"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 
 </LinearLayout>
