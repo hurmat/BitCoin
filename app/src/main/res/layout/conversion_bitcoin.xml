@@ -90,7 +90,7 @@
                                         android:layout_marginTop="17dp"
                                         android:layout_weight="0.26"
                                         android:foregroundGravity="right"
-                                        app:srcCompat="@android:drawable/ic_dialog_alert" />
+                                        app:srcCompat="@drawable/notification_icon" />
 
                                 </RelativeLayout>
 
@@ -403,7 +403,7 @@
                                         android:layout_marginTop="17dp"
                                         android:layout_weight="0.26"
                                         android:foregroundGravity="right"
-                                        app:srcCompat="@android:drawable/ic_dialog_alert" />
+                                        app:srcCompat="@drawable/notification_icon" />
 
                                 </RelativeLayout>
 

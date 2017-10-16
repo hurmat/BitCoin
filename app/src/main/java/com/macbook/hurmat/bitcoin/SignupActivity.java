@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -81,16 +83,31 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
-                        } else {
+                        }
+                            //hdhhhh
+                        else {
                             progressDialog.dismiss();
-                            new AlertDialog.Builder(SignupActivity.this)
-                                    .setTitle("Error")
-                                    .setMessage(task.getException().toString())
+                            AlertDialog.Builder alert = new AlertDialog.Builder(SignupActivity.this);
+                            alert .setTitle("Error")
                                     .setPositiveButton(android.R.string.ok, null)
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .show();
+                                    .setIcon(android.R.drawable.ic_dialog_alert);
+                            if (task.getException() instanceof FirebaseAuthUserCollisionException)
+                            {
+                                //If email already registered.
+                                alert.setMessage("The email address is already in use!").show();
+
+                            }else if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
+                                //If email is incorrect
+                                alert.setMessage("The password is invalid!").show();
+
+                            }else
+                            {
+                                //OTHER THING
+                                alert.setMessage(task.getException().toString()).show();
+                            }
 
                         }
+
                     }
                 });
             }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,8 +47,15 @@ public class MainActivity_conversion extends AppCompatActivity {
     ImageView alertOne, alertTwo;
     TextView dateOne, dateTwo;
     String Date;
-    Double compareValue = 18.11;
+
+    static Double compareValue = 18.11;
+
     Double BTCPriceInUSD,BTCPriceInMXN, ETHPriceInUSD,ETHPriceInMXN,USDtoMXNRate;
+
+    NotificationManager notificationManager;
+
+    boolean isAlert = true ;
+
 
 
     @Override
@@ -100,7 +108,6 @@ public class MainActivity_conversion extends AppCompatActivity {
         dateOne.setText(Date);
         dateTwo.setText(Date);
 
-
         alertOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,6 +152,9 @@ public class MainActivity_conversion extends AppCompatActivity {
                             BTCPriceInMXN = jsonObject.getDouble("BTCPriceInMXN");
                             tvBtcMxn.setText(String.valueOf(BTCPriceInMXN));
 
+                            Double BtcMxnToUsd = BTCPriceInMXN / BTCPriceInUSD;
+                            tvBtcMxntoUsd.setText(String.valueOf(BtcMxnToUsd));
+
                             ETHPriceInUSD = jsonObject.getDouble("ETHPriceInUSD");
                             tvEthUsd.setText(String.valueOf(ETHPriceInUSD));
                             tvEthToday.setText(String.valueOf(ETHPriceInUSD));
@@ -153,16 +163,18 @@ public class MainActivity_conversion extends AppCompatActivity {
                             tvEthMxn.setText(String.valueOf(ETHPriceInMXN));
                             USDtoMXNRate =  jsonObject.getDouble("USDtoMXNRate");
                             tvEthMxntoUsd.setText(String.valueOf(USDtoMXNRate));
-                            tvBtcMxntoUsd.setText(String.valueOf(USDtoMXNRate));
 
 
                             if(USDtoMXNRate>=compareValue){
 
                                 showNotification();
-                                showAlert();
-                                compareValue= compareValue+1.00;
+                                if(isAlert){
+                                    isAlert=false;
+                                    showAlert();
+                                }
 
                             }
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -185,11 +197,13 @@ public class MainActivity_conversion extends AppCompatActivity {
     }
 
     public void showValueBox(){
+
         
         final View mView = getLayoutInflater().inflate(R.layout.value_box, null);
         final EditText value = (EditText)mView.findViewById(R.id.etValue);
         Button save =(Button)mView.findViewById(R.id.btnSave);
 
+        value.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
         value.setText(compareValue.toString());
         final AlertDialog valueBox = new AlertDialog.Builder(MainActivity_conversion.this).create();
         valueBox.setView(mView);
@@ -199,9 +213,10 @@ public class MainActivity_conversion extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
                 compareValue = Double.parseDouble(value.getText().toString());
                 valueBox.dismiss();
+                isAlert=true;
 
 
             }
@@ -225,7 +240,7 @@ public class MainActivity_conversion extends AppCompatActivity {
 
         Notification notification = builder.build();
         builder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
          int notificationId = 0;
         notificationManager.notify(notificationId,notification);
 
@@ -234,6 +249,8 @@ public class MainActivity_conversion extends AppCompatActivity {
 
     public void showAlert(){
 
+
+        final AlertDialog alertBox;
         final View mView = getLayoutInflater().inflate(R.layout.alert_box, null);
         TextView tvValue = (TextView) mView.findViewById(R.id.tvValue);
         Button oky = (Button) mView.findViewById(R.id.btnOky);
@@ -242,7 +259,7 @@ public class MainActivity_conversion extends AppCompatActivity {
         alertDate.setText(Date);
 
         tvValue.setText(compareValue.toString());
-        final AlertDialog alertBox = new AlertDialog.Builder(MainActivity_conversion.this).create();
+        alertBox = new AlertDialog.Builder(MainActivity_conversion.this).create();
         alertBox.setView(mView);
         alertBox.show();
         alertBox.setCancelable(true);
@@ -251,6 +268,8 @@ public class MainActivity_conversion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 alertBox.cancel();
+                notificationManager.cancelAll();
+                compareValue= compareValue+1.00;
             }
         });
 

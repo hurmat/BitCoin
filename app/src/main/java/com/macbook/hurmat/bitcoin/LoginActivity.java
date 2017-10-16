@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
@@ -97,12 +99,25 @@ public class LoginActivity extends AppCompatActivity {
 
                                     } else {
                                         progressDialog.dismiss();
-                                        new AlertDialog.Builder(LoginActivity.this)
-                                                .setTitle("Error")
-                                                .setMessage(task.getException().toString())
-                                                .setPositiveButton(android.R.string.ok, null)
-                                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                                .show();
+                                        AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+                                               alert .setTitle("Error")
+                                                       .setPositiveButton(android.R.string.ok,null)
+                                                       .setIcon(android.R.drawable.ic_dialog_alert);
+                                         if (task.getException() instanceof FirebaseAuthInvalidUserException)
+                                        {
+                                            //If email already registered.
+                                            alert.setMessage("No user found!").show();
+
+                                        }else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                            //If email is incorrect
+                                             alert.setMessage("The password is invalid!").show();
+
+                                        }else
+                                        {
+                                            //OTHER THING
+                                            alert.setMessage(task.getException().toString()).show();
+                                        }
+
                                     }
                                 }
                             });
@@ -132,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if (password.isEmpty() || password.length() < 4 ) {
-            loginPassword.setError("Enter alphanumeric password!!");
+            loginPassword.setError("Invalid password!!");
             valid = false;
         } else {
             loginPassword.setError(null);
