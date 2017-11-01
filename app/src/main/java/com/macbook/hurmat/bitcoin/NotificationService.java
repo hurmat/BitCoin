@@ -38,7 +38,7 @@ public class NotificationService extends Service {
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         int pendingIntentId = 0;
-        PendingIntent pendindIntent = PendingIntent.getActivity(this,pendingIntentId, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendindIntent = PendingIntent.getActivity(this,pendingIntentId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification.Builder builder = new Notification.Builder(this)
 
                 .setContentIntent(pendindIntent)

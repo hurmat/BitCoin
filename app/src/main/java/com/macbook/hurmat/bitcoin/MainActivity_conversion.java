@@ -50,7 +50,7 @@ public class MainActivity_conversion extends AppCompatActivity {
     TextView dateOne, dateTwo;
     String Date;
 
-    static Double compareValue = 18.00;
+    static Double compareValue ;
 
     Double BTCPriceInUSD,BTCPriceInMXN, ETHPriceInUSD,ETHPriceInMXN,USDtoMXNRate;
 
@@ -72,11 +72,14 @@ public class MainActivity_conversion extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("Reg", 0);
         editor = sharedPreferences.edit();
 
-        String compare = sharedPreferences.getString("setCompare", "");
+        String compare = sharedPreferences.getString("setCompare","10.00");
 
         if(compare!=null){
             Log.d("compare", compare);
-        compareValue = Double.parseDouble(compare);
+        compareValue = Double.valueOf(compare);
+        }
+        else if(compare== null){
+            compareValue= 17.00;
         }
 
 

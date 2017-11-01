@@ -332,6 +332,7 @@
                                     android:layout_weight="0.02"
                                     android:gravity="center"
                                     android:text="33.44"
+                                    android:maxLength="6"
                                     android:textColor="@color/colorLight"
                                     android:textSize="20sp" />
                             </LinearLayout>
