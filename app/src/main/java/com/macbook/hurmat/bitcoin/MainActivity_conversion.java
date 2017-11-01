@@ -33,6 +33,8 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static java.lang.Double.parseDouble;
+
 public class MainActivity_conversion extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
@@ -48,13 +50,15 @@ public class MainActivity_conversion extends AppCompatActivity {
     TextView dateOne, dateTwo;
     String Date;
 
-    static Double compareValue = 18.11;
+    static Double compareValue = 18.00;
 
     Double BTCPriceInUSD,BTCPriceInMXN, ETHPriceInUSD,ETHPriceInMXN,USDtoMXNRate;
 
-    NotificationManager notificationManager;
+    static NotificationManager notificationManager;
 
     boolean isAlert = true ;
+    static final Handler handler = new Handler();
+    Intent serviceIntent;
 
 
 
@@ -67,6 +71,14 @@ public class MainActivity_conversion extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("Reg", 0);
         editor = sharedPreferences.edit();
+
+        String compare = sharedPreferences.getString("setCompare", "");
+
+        if(compare!=null){
+            Log.d("compare", compare);
+        compareValue = Double.parseDouble(compare);
+        }
+
 
 
         TabHost tabHost =(TabHost) findViewById(R.id.tabHost);
@@ -124,8 +136,9 @@ public class MainActivity_conversion extends AppCompatActivity {
         });
 
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+
+
+       handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 handler.postDelayed(this, 1 * 60 * 1000); // every 1 minutes
@@ -141,6 +154,7 @@ public class MainActivity_conversion extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                       // Toast.makeText(MainActivity_conversion.this, ""+response, Toast.LENGTH_SHORT).show();
                         Log.d("Response", response);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -165,15 +179,22 @@ public class MainActivity_conversion extends AppCompatActivity {
                             tvEthMxntoUsd.setText(String.valueOf(USDtoMXNRate));
 
 
-                            if(USDtoMXNRate>=compareValue){
+                                if (USDtoMXNRate >= compareValue) {
 
-                                showNotification();
-                                if(isAlert){
-                                    isAlert=false;
-                                    showAlert();
+                                    // showNotification();
+                                    serviceIntent = new Intent(MainActivity_conversion.this, NotificationService.class);
+                                    startService(serviceIntent);
+
+                                    if (isAlert) {
+                                        isAlert = false;
+
+                                        showAlert();
+
+
+                                    }
+
                                 }
 
-                            }
 
 
                         } catch (JSONException e) {
@@ -204,6 +225,7 @@ public class MainActivity_conversion extends AppCompatActivity {
         Button save =(Button)mView.findViewById(R.id.btnSave);
 
         value.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(5,2)});
+
         value.setText(compareValue.toString());
         final AlertDialog valueBox = new AlertDialog.Builder(MainActivity_conversion.this).create();
         valueBox.setView(mView);
@@ -214,7 +236,10 @@ public class MainActivity_conversion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                compareValue = Double.parseDouble(value.getText().toString());
+                compareValue = parseDouble(value.getText().toString());
+                editor.putString("setCompare", String.valueOf(compareValue));
+
+                editor.commit();
                 valueBox.dismiss();
                 isAlert=true;
 
@@ -249,7 +274,6 @@ public class MainActivity_conversion extends AppCompatActivity {
 
     public void showAlert(){
 
-
         final AlertDialog alertBox;
         final View mView = getLayoutInflater().inflate(R.layout.alert_box, null);
         TextView tvValue = (TextView) mView.findViewById(R.id.tvValue);
@@ -268,13 +292,22 @@ public class MainActivity_conversion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 alertBox.cancel();
-                notificationManager.cancelAll();
+
+               // notificationManager.cancelAll();
                 compareValue= compareValue+1.00;
+                editor.putString("setCompare", String.valueOf(compareValue));
+                editor.commit();
+
+
             }
         });
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
 
 

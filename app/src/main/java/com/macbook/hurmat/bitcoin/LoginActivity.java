@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,11 @@ public class LoginActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
         isLogin = sharedPreferences.getBoolean("Login", false);
 
+
+
         if (isLogin) {
+
+
             startActivity(new Intent(LoginActivity.this, MainActivity_conversion.class));
 
             LoginActivity.this.finish();
